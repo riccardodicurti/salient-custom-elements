@@ -16,24 +16,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          coverage: none
-          tools: wp-cli
-
-      - name: Install dist-archive command
-        run: wp package install wp-cli/dist-archive-command:@stable
-
       - name: Build installable zip
         run: |
-          wp dist-archive . salient-custom-elements.zip --plugin-dirname=salient-custom-elements
+          set -euo pipefail
+          PLUGIN_SLUG=salient-custom-elements
+          STAGING="$(mktemp -d)"
+          mkdir -p "${STAGING}/${PLUGIN_SLUG}"
+
+          rsync -a \
+            --exclude-from=.distignore \
+            --exclude='.git' \
+            ./ "${STAGING}/${PLUGIN_SLUG}/"
+
+          (cd "${STAGING}" && zip -r "${GITHUB_WORKSPACE}/salient-custom-elements.zip" "${PLUGIN_SLUG}")
+
           echo "Archive contents:"
           unzip -l salient-custom-elements.zip
 
       - name: Verify dev files are excluded
         run: |
+          set -euo pipefail
           ! unzip -l salient-custom-elements.zip | grep -E '\.github/|/tools/|/\.ci/|phpcs\.xml\.dist|README\.md'
 
       - name: Publish GitHub Release
