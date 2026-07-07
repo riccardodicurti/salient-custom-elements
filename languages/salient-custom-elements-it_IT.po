@@ -1,0 +1,673 @@
+# Copyright (C) 2026 Riccardo Di Curti
+# This file is distributed under the same license as the Salient Custom Elements package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Salient Custom Elements 0.2.0\n"
+"Report-Msgid-Bugs-To: https://riccardodicurti.it\n"
+"POT-Creation-Date: 2026-07-07 12:00+0000\n"
+"PO-Revision-Date: 2026-07-07 12:00+0000\n"
+"Last-Translator: Riccardo Di Curti <https://riccardodicurti.it>\n"
+"Language-Team: Italian\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "AI generation is not configured yet. Connect a provider via the sce_ai_provider filter (WP 7 AI Client or API key), or build the element manually."
+msgstr "Generazione AI non configurata. Collega un provider tramite il filtro sce_ai_provider (AI Client di WP 7 o chiave API), oppure crea l'elemento manualmente."
+
+msgid "AI generation is not configured yet. Connect a provider via the sce_ai_provider filter (WP 7 AI Client or API key), or edit the element manually."
+msgstr "Generazione AI non configurata. Collega un provider tramite il filtro sce_ai_provider (AI Client di WP 7 o chiave API), oppure modifica l'elemento manualmente."
+
+msgid "AI preserves it during edits; change it manually only if necessary"
+msgstr "L'AI lo preserva durante le modifiche; cambialo manualmente solo se necessario"
+
+msgid "API for registering custom shortcodes."
+msgstr "API per registrare shortcode personalizzati."
+
+msgid "ARIA only when needed; prefer native elements."
+msgstr "ARIA solo quando serve; preferisci elementi nativi."
+
+msgid "Accent color"
+msgstr "Colore accent"
+
+msgid "Accessibility"
+msgstr "Accessibilità"
+
+msgid "Accessibility: an <img> is missing the alt attribute."
+msgstr "Accessibilità: un'<img> non ha l'attributo alt."
+
+msgid "Actions"
+msgstr "Azioni"
+
+msgid "Apply changes"
+msgstr "Applica modifiche"
+
+msgid "Applying changes with AI…"
+msgstr "Applicazione modifiche con AI…"
+
+msgid "Assistant"
+msgstr "Assistente"
+
+msgid "Avoid for AI"
+msgstr "Evitare per l'AI"
+
+msgid "Avoid for AI."
+msgstr "Evitare per l'AI."
+
+msgid "Back to plugins"
+msgstr "Torna ai plugin"
+
+msgid "Base"
+msgstr "Base"
+
+msgid "Base (shortcode tag)"
+msgstr "Base (tag shortcode)"
+
+msgid "Bindable Salient options"
+msgstr "Opzioni Salient collegabili"
+
+msgid "Body border color"
+msgstr "Colore bordo body"
+
+msgid "Body font"
+msgstr "Font body"
+
+msgid "Button roundness"
+msgstr "Arrotondamento bottoni"
+
+msgid "Button styling"
+msgstr "Stile bottoni"
+
+msgid "Changes applied: %s."
+msgstr "Modifiche applicate: %s."
+
+msgid "Colors"
+msgstr "Colori"
+
+msgid "Colors pass through sanitize_hex_color (or rgb/hsl whitelist); image IDs through absint."
+msgstr "I colori passano da sanitize_hex_color (o whitelist rgb/hsl); gli ID immagine da absint."
+
+msgid "Column spacing"
+msgstr "Spaziatura colonne"
+
+msgid "Complete!"
+msgstr "Completato!"
+
+msgid "Creating the preview page…"
+msgstr "Creazione pagina anteprima…"
+
+msgid "Current value"
+msgstr "Valore attuale"
+
+msgid "Custom Elements"
+msgstr "Elementi personalizzati"
+
+msgid "Definition and generated file deleted."
+msgstr "Definizione e file generato eliminati."
+
+msgid "Definition received, validating JSON…"
+msgstr "Definizione ricevuta, validazione JSON…"
+
+msgid "Definition updated, validating JSON…"
+msgstr "Definizione aggiornata, validazione JSON…"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Delete definition and generated file?"
+msgstr "Eliminare definizione e file generato?"
+
+msgid "Describe in natural language what to change. AI updates the element and the form fields refresh automatically."
+msgstr "Descrivi in linguaggio naturale cosa cambiare. L'AI aggiorna l'elemento e i campi del form si aggiornano automaticamente."
+
+msgid "Describe the changes to apply."
+msgstr "Descrivi le modifiche da applicare."
+
+msgid "Describe the changes you want to make…"
+msgstr "Descrivi le modifiche che vuoi fare…"
+
+msgid "Describe the element to generate."
+msgstr "Descrivi l'elemento da generare."
+
+msgid "Describe the element. AI produces a definition that follows SEO, security, accessibility, and responsive rules; then you can refine it."
+msgstr "Descrivi l'elemento. L'AI produce una definizione che rispetta le regole SEO, sicurezza, accessibilità e responsive; poi puoi rifinirla."
+
+msgid "Description"
+msgstr "Descrizione"
+
+msgid "Description used to generate this element. For further changes use the chat below the form."
+msgstr "Descrizione usata per generare questo elemento. Per ulteriori modifiche usa la chat sotto il form."
+
+msgid "Descriptive links, never \"click here\"; rel=\"noopener\" on target _blank."
+msgstr "Link descrittivi, mai \"clicca qui\"; rel=\"noopener\" su target _blank."
+
+msgid "Dev/staging tool. Created elements are usable immediately in the editor. Review the generated PHP, then export the production plugin and remove this generator."
+msgstr "Strumento da dev/staging. Gli elementi creati sono usabili subito nell'editor. Revisiona il PHP generato, poi esporta il plugin di produzione e rimuovi questo generatore."
+
+msgid "Developed by <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Riccardo Di Curti</a>."
+msgstr "Sviluppato da <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Riccardo Di Curti</a>."
+
+msgid "Direct value of a Salient theme option."
+msgstr "Valore diretto di un'opzione del tema Salient."
+
+msgid "Discernible text or aria-label on buttons and links; empty alt for decorative images."
+msgstr "Testo distinguibile o aria-label su bottoni e link; alt vuoto per immagini decorative."
+
+msgid "Download PHP"
+msgstr "Scarica PHP"
+
+msgid "Download zip (all elements)"
+msgstr "Scarica zip (tutti gli elementi)"
+
+msgid "E.g.: a hero with title, subtitle, and button, color inherited from the theme accent color"
+msgstr "Es.: una hero con titolo, sottotitolo e bottone, colore ereditato dall'accent color del tema"
+
+msgid "E.g.: add a parameter for the title color"
+msgstr "Es.: aggiungi un parametro per il colore del titolo"
+
+msgid "Edit / review"
+msgstr "Modifica / review"
+
+msgid "Edit element"
+msgstr "Modifica elemento"
+
+msgid "Edit with AI"
+msgstr "Modifica con AI"
+
+msgid "Element generated and available in the editor. The form below is pre-filled: edit and save to refine."
+msgstr "Elemento generato e disponibile nell'editor. Il form sotto è precompilato: modifica e salva per rifinire."
+
+msgid "Element marked as reviewed."
+msgstr "Elemento marcato come revisionato."
+
+msgid "Element not found."
+msgstr "Elemento non trovato."
+
+msgid "Element proposed for review."
+msgstr "Elemento proposto per la revisione."
+
+msgid "Element updated. Check the form fields for details."
+msgstr "Elemento aggiornato. Controlla i campi del form per i dettagli."
+
+msgid "Element updated. You can continue requesting changes or save manually."
+msgstr "Elemento aggiornato. Puoi continuare a richiedere modifiche o salvare manualmente."
+
+msgid "Elements"
+msgstr "Elementi"
+
+msgid "Enclosed content for shortcodes with opening and closing tags."
+msgstr "Contenuto racchiuso per shortcode con tag di apertura e chiusura."
+
+msgid "Error"
+msgstr "Errore"
+
+msgid "Every dynamic value must be escaped on output: esc_html for text, esc_attr for attributes, esc_url for URLs, wp_kses_post for rich content."
+msgstr "Ogni valore dinamico deve essere escapato in output: esc_html per testo, esc_attr per attributi, esc_url per URL, wp_kses_post per contenuto ricco."
+
+msgid "Every file has an ABSPATH guard and prefixed functions to avoid collisions."
+msgstr "Ogni file ha guard ABSPATH e funzioni prefissate per evitare collisioni."
+
+msgid "Example"
+msgstr "Esempio"
+
+msgid "Example: %s"
+msgstr "Esempio: %s"
+
+msgid "Extra color 1"
+msgstr "Colore extra 1"
+
+msgid "Extra color 2"
+msgstr "Colore extra 2"
+
+msgid "Extra color 3"
+msgstr "Colore extra 3"
+
+msgid "Extracted at runtime from WPBakery: %d elements."
+msgstr "Estratti a runtime da WPBakery: %d elementi."
+
+msgid "FORBIDDEN: raw CSS, JavaScript, <script> tags, <style> tags, IIFEs, window.addEventListener in the template."
+msgstr "VIETATO: CSS grezzo, JavaScript, tag <script>, tag <style>, IIFE, window.addEventListener nel template."
+
+msgid "File not found."
+msgstr "File non trovato."
+
+msgid "Flex/grid layouts that reflow; breakpoints consistent with Salient."
+msgstr "Layout flex/grid che si adattano; breakpoint coerenti con Salient."
+
+msgid "Fluid type with clamp(); custom properties for gap and colors."
+msgstr "Tipografia fluida con clamp(); custom property per gap e colori."
+
+msgid "For SCE elements: template with semantic HTML ONLY and {{param}} tokens; no raw CSS/JS."
+msgstr "Per elementi SCE: template con SOLO HTML semantico e token {{param}}; niente CSS/JS grezzo."
+
+msgid "Full-width section image."
+msgstr "Immagine sezione full-width."
+
+msgid "GSAP animations or custom scripts require separate fields (not yet supported): use only generated HTML/CSS."
+msgstr "Animazioni GSAP o script custom richiedono campi separati (non ancora supportati): usa solo HTML/CSS generato."
+
+msgid "Generate"
+msgstr "Genera"
+
+msgid "Generate with AI"
+msgstr "Genera con AI"
+
+msgid "Generated code review"
+msgstr "Review codice generato"
+
+msgid "Generating the definition with AI…"
+msgstr "Generazione definizione con AI…"
+
+msgid "Generating…"
+msgstr "Generazione in corso…"
+
+msgid "Global Sections and Salient page builder."
+msgstr "Global Sections e page builder Salient."
+
+msgid "Golden examples (Salient)"
+msgstr "Esempi golden (Salient)"
+
+msgid "HTML Template"
+msgstr "Template HTML"
+
+msgid "Hero CTA (example)"
+msgstr "Hero CTA (esempio)"
+
+msgid "Images with max-width:100% and height:auto."
+msgstr "Immagini con max-width:100% e height:auto."
+
+msgid "Images with meaningful alt, loading=\"lazy\", decoding=\"async\", and width/height to prevent CLS."
+msgstr "Immagini con alt significativo, loading=\"lazy\", decoding=\"async\", e width/height per evitare CLS."
+
+msgid "Inputs go through shortcode_atts with explicit defaults; no extract()."
+msgstr "Gli input passano da shortcode_atts con default espliciti; niente extract()."
+
+msgid "Insufficient permissions."
+msgstr "Permessi insufficienti."
+
+msgid "Interactive elements keyboard-focusable with visible focus (:focus-visible)."
+msgstr "Elementi interattivi focusabili da tastiera con focus visibile (:focus-visible)."
+
+msgid "Invalid nonce."
+msgstr "Nonce non valido."
+
+msgid "Key"
+msgstr "Chiave"
+
+msgid "Knowledge base WPBakery."
+msgstr "Knowledge base WPBakery."
+
+msgid "Layout"
+msgstr "Layout"
+
+msgid "Loading element \"%s\" and preparing context…"
+msgstr "Caricamento elemento \"%s\" e preparazione contesto…"
+
+msgid "Malformed HTML template: closing tag </{{%1$s}}> without opening <{{%1$s}}>. If you paste HTML code, ask the AI to convert it into a valid template with paired dynamic tags."
+msgstr "Template HTML malformato: tag di chiusura </{{%1$s}}> senza apertura <{{%1$s}}>. Se incolli codice HTML, chiedi all'AI di convertirlo in un template valido con tag dinamici accoppiati."
+
+msgid "Malformed HTML template: opening tag <{{%1$s}}> without closing </{{%1$s}}>."
+msgstr "Template HTML malformato: tag di apertura <{{%1$s}}> senza chiusura </{{%1$s}}>."
+
+msgid "Max container width"
+msgstr "Larghezza max container"
+
+msgid "Missing base, unable to generate."
+msgstr "Base mancante, impossibile generare."
+
+msgid "Missing dependencies"
+msgstr "Dipendenze mancanti"
+
+msgid "Mobile-first, fluid units (rem, %, clamp()), no fixed widths that break the layout."
+msgstr "Mobile-first, unità fluide (rem, %, clamp()), niente larghezze fisse che rompono il layout."
+
+msgid "Modifying…"
+msgstr "Modifica in corso…"
+
+msgid "Multiple selection."
+msgstr "Selezione multipla."
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Name and base (shortcode tag) are required."
+msgstr "Nome e base (tag shortcode) sono obbligatori."
+
+msgid "Navigation font"
+msgstr "Font navigazione"
+
+msgid "Network error"
+msgstr "Errore di rete"
+
+msgid "Never use eval, create_function, dynamic includes, or unescaped output."
+msgstr "Non usare eval, create_function, include dinamici o output non escapato."
+
+msgid "New request:"
+msgstr "Nuova richiesta:"
+
+msgid "No AI model configured in the AI plugin."
+msgstr "Nessun modello AI configurato nel plugin AI."
+
+msgid "No elements to package."
+msgstr "Nessun elemento da confezionare."
+
+msgid "No elements yet."
+msgstr "Nessun elemento ancora."
+
+msgid "No informational text injected only via CSS."
+msgstr "Nessun testo informativo iniettato solo via CSS."
+
+msgid "No nectar_* elements detected. Make sure Salient and WPBakery are active and initialized."
+msgstr "Nessun elemento nectar_* rilevato. Verifica che Salient e WPBakery siano attivi e inizializzati."
+
+msgid "No warnings: meets the basic rules."
+msgstr "Nessun avviso: rispetta le regole base."
+
+msgid "Note"
+msgstr "Nota"
+
+msgid "Numeric slider."
+msgstr "Slider numerico."
+
+msgid "Official WPBakery support."
+msgstr "Supporto ufficiale WPBakery."
+
+msgid "Official resources"
+msgstr "Risorse ufficiali"
+
+msgid "Official theme documentation."
+msgstr "Documentazione ufficiale del tema."
+
+msgid "One logical heading per element, configurable level among h2, h3, h4, without skipping levels."
+msgstr "Un heading logico per elemento, livello configurabile tra h2, h3, h4, senza saltare livelli."
+
+msgid "One or more required dependencies are missing:"
+msgstr "Mancano una o più dipendenze richieste:"
+
+msgid "Optional"
+msgstr "Opzionale"
+
+msgid "Original prompt"
+msgstr "Prompt originale"
+
+msgid "Overall background"
+msgstr "Sfondo generale"
+
+msgid "Overall font color"
+msgstr "Colore font generale"
+
+msgid "PHP Zip extension not available."
+msgstr "Estensione PHP Zip non disponibile."
+
+msgid "Package and remove generator"
+msgstr "Confeziona e rimuovi il generatore"
+
+msgid "Package the production plugin with all elements, activate it, and remove this generator. Continue?"
+msgstr "Confezionare il plugin di produzione con tutti gli elementi, attivarlo e rimuovere questo generatore. Continuare?"
+
+msgid "Parameters (JSON)"
+msgstr "Parametri (JSON)"
+
+msgid "Preparing Salient context and rules…"
+msgstr "Preparazione contesto Salient e regole…"
+
+msgid "Preview"
+msgstr "Anteprima"
+
+msgid "Preview unavailable"
+msgstr "Anteprima non disponibile"
+
+msgid "Preview: %s"
+msgstr "Anteprima: %s"
+
+msgid "Production rules"
+msgstr "Regole di produzione"
+
+msgid "Prompt unavailable (element created manually or before this feature)."
+msgstr "Prompt non disponibile (elemento creato manualmente o prima di questa funzione)."
+
+msgid "Real patterns from nectar_maps that AI draws inspiration from."
+msgstr "Pattern reali da nectar_maps da cui l'AI trae ispirazione."
+
+msgid "Recommended"
+msgstr "Consigliato"
+
+msgid "Recommended for generated elements."
+msgstr "Consigliato per elementi generati."
+
+msgid "Respect prefers-reduced-motion for every animation."
+msgstr "Rispetta prefers-reduced-motion per ogni animazione."
+
+msgid "Responsive"
+msgstr "Responsive"
+
+msgid "Responsive margins/padding."
+msgstr "Margini/padding responsive."
+
+msgid "Responsive padding"
+msgstr "Padding responsive"
+
+msgid "Responsive scoped CSS is generated automatically by the plugin; do not duplicate it in the template."
+msgstr "Il CSS responsive scoped è generato automaticamente dal plugin; non duplicarlo nel template."
+
+msgid "Return ONLY a valid JSON object conforming to output_schema. No text, markdown, or PHP. The template MUST contain ONLY semantic HTML with {{param}} tokens: raw CSS, JavaScript, script/style tags, and IIFEs are FORBIDDEN. Use only recommended param_types. For theme colors use salient_option or {{binding:accent-color}}. Follow golden_elements patterns. Respect production_rules."
+msgstr "Restituisci SOLO un oggetto JSON valido conforme a output_schema. Niente testo, markdown o PHP. Il template DEVE contenere SOLO HTML semantico con token {{param}}: CSS grezzo, JavaScript, tag script/style e IIFE sono VIETATI. Usa solo param_types consigliati. Per i colori tema usa salient_option o {{binding:accent-color}}. Segui i pattern golden_elements. Rispetta production_rules."
+
+msgid "SEO"
+msgstr "SEO"
+
+msgid "SEO: no heading (h2-h4) in the template. Add one for page structure."
+msgstr "SEO: nessun heading (h2-h4) nel template. Aggiungine uno per la struttura della pagina."
+
+msgid "SEO: only div/span, no semantic tags. Consider section/article/figure."
+msgstr "SEO: solo div/span, nessun tag semantico. Considera section/article/figure."
+
+msgid "Salient Custom"
+msgstr "Salient Custom"
+
+msgid "Salient Custom Elements"
+msgstr "Salient Custom Elements"
+
+msgid "Salient Custom Elements active: remove before production"
+msgstr "Salient Custom Elements attivo: rimuovi prima della produzione"
+
+msgid "Salient Docs"
+msgstr "Documentazione Salient"
+
+msgid "Salient Page Builder / Global Sections"
+msgstr "Salient Page Builder / Global Sections"
+
+msgid "Salient custom param types"
+msgstr "Tipi param Salient personalizzati"
+
+msgid "Salient elements reference"
+msgstr "Riferimento elementi Salient"
+
+msgid "Salient elements use vc_lean_map() with files in salient-core/includes/nectar_maps/{base}.php."
+msgstr "Gli elementi Salient usano vc_lean_map() con file in salient-core/includes/nectar_maps/{base}.php."
+
+msgid "Salient overrides vc_row and vc_column: do not use standard WPB container maps."
+msgstr "Salient sovrascrive vc_row e vc_column: non usare le mappe container WPB standard."
+
+msgid "Salient theme not active"
+msgstr "Tema Salient non attivo"
+
+msgid "Salient vc_map patterns"
+msgstr "Pattern vc_map Salient"
+
+msgid "Sample text for preview."
+msgstr "Testo di esempio per l'anteprima."
+
+msgid "Save and generate"
+msgstr "Salva e genera"
+
+msgid "Saving changes and regenerating PHP…"
+msgstr "Salvataggio modifiche e rigenerazione PHP…"
+
+msgid "Saving the element and generating PHP…"
+msgstr "Salvataggio elemento e generazione PHP…"
+
+msgid "Security"
+msgstr "Sicurezza"
+
+msgid "Security: link with target=_blank without rel=\"noopener\"."
+msgstr "Sicurezza: link con target=_blank senza rel=\"noopener\"."
+
+msgid "Security: on* attributes (inline handlers) in the template. Remove them."
+msgstr "Sicurezza: attributi on* (handler inline) nel template. Rimuovili."
+
+msgid "Semantic HTML5: section/article/header/figure/nav instead of generic divs."
+msgstr "HTML5 semantico: section/article/header/figure/nav invece di div generici."
+
+msgid "Shared reference for designers and the AI generator. Rules are applied to generated code and enforced on the model."
+msgstr "Riferimento condiviso per designer e generatore AI. Le regole sono applicate al codice generato e imposte al modello."
+
+msgid "Status"
+msgstr "Stato"
+
+msgid "Structure: return array( name, base, category, icon, params => [...] )."
+msgstr "Struttura: return array( name, base, category, icon, params => [...] )."
+
+msgid "Support development"
+msgstr "Supporta lo sviluppo"
+
+msgid "Template ({{param}} and {{binding:opt-key}} tokens)"
+msgstr "Template (token {{param}} e {{binding:opt-key}})"
+
+msgid "Template tokens"
+msgstr "Token template"
+
+msgid "The AI model is temporarily overloaded. Wait a few minutes and try again. If the problem persists, switch models in the AI plugin settings (e.g. change from gemini-2.5-flash to gemini-2.0-flash)."
+msgstr "Il modello AI è temporaneamente sovraccarico. Attendi qualche minuto e riprova. Se il problema persiste, cambia modello nelle impostazioni del plugin AI (es. passa da gemini-2.5-flash a gemini-2.0-flash)."
+
+msgid "The HTML template is required."
+msgstr "Il template HTML è obbligatorio."
+
+msgid "The model did not return valid JSON."
+msgstr "Il modello non ha restituito JSON valido."
+
+msgid "The template cannot contain JavaScript. Remove inline scripts or IIFEs: CSS/JS is generated automatically by the plugin."
+msgstr "Il template non può contenere JavaScript. Rimuovi script inline o IIFE: CSS/JS è generato automaticamente dal plugin."
+
+msgid "The template cannot contain raw CSS. Responsive CSS is generated automatically by the plugin."
+msgstr "Il template non può contenere CSS grezzo. Il CSS responsive è generato automaticamente dal plugin."
+
+msgid "The template cannot contain script or style tags. Use semantic HTML only."
+msgstr "Il template non può contenere tag script o style. Usa solo HTML semantico."
+
+msgid "The template contains ONLY semantic HTML with {{param_name}} and {{binding:opt-key}} tokens."
+msgstr "Il template contiene SOLO HTML semantico con token {{param_name}} e {{binding:opt-key}}."
+
+msgid "Theme color dropdown with swatches."
+msgstr "Dropdown colori tema con campioni."
+
+msgid "Theme colors in dropdowns: accent-color, extra-color-1, extra-color-gradient-1 (lowercase)."
+msgstr "Colori tema nei dropdown: accent-color, extra-color-1, extra-color-gradient-1 (minuscolo)."
+
+msgid "Theme gradient 1"
+msgstr "Gradiente tema 1"
+
+msgid "Theme gradient 2"
+msgstr "Gradiente tema 2"
+
+msgid "Theme skin"
+msgstr "Skin tema"
+
+msgid "To fix:"
+msgstr "Da correggere:"
+
+msgid "Too complex for AI generation."
+msgstr "Troppo complesso per la generazione AI."
+
+msgid "Touch targets at least 44x44px; no information conveyed by color alone; AA contrast."
+msgstr "Target touch almeno 44x44px; nessuna informazione veicolata solo dal colore; contrasto AA."
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Typography"
+msgstr "Tipografia"
+
+msgid "Unable to activate Salient Custom Elements"
+msgstr "Impossibile attivare Salient Custom Elements"
+
+msgid "Unable to create the plugin folder."
+msgstr "Impossibile creare la cartella del plugin."
+
+msgid "Unable to create the zip file."
+msgstr "Impossibile creare il file zip."
+
+msgid "Unable to write the generated file. Check uploads permissions."
+msgstr "Impossibile scrivere il file generato. Verifica i permessi su uploads."
+
+msgid "Updating the preview page…"
+msgstr "Aggiornamento pagina anteprima…"
+
+msgid "Use group (e.g. Design Options) and dependency for conditional show/hide."
+msgstr "Usa group (es. Design Options) e dependency per show/hide condizionale."
+
+msgid "Use only when necessary."
+msgstr "Usa solo quando necessario."
+
+msgid "User"
+msgstr "Utente"
+
+msgid "Valid structure: %1$s (%2$s)"
+msgstr "Struttura valida: %1$s (%2$s)"
+
+msgid "Value of a parameter, escaped according to its type."
+msgstr "Valore di un parametro, escapato secondo il tipo."
+
+msgid "Values read in real time from the active theme settings. Use them as salient_option on a parameter or as {{binding:key}}."
+msgstr "Valori letti in tempo reale dalle impostazioni del tema attivo. Usali come salient_option su un parametro o come {{binding:key}}."
+
+msgid "Version %1$s · %2$s"
+msgstr "Versione %1$s · %2$s"
+
+msgid "View preview"
+msgstr "Vedi anteprima"
+
+msgid "Visual shape/underline selection."
+msgstr "Selezione forma/sottolineatura visiva."
+
+msgid "WPBakery Knowledge Base"
+msgstr "Knowledge Base WPBakery"
+
+msgid "WPBakery Page Builder not active"
+msgstr "WPBakery Page Builder non attivo"
+
+msgid "WPBakery Support"
+msgstr "Supporto WPBakery"
+
+msgid "WPBakery category"
+msgstr "Categoria WPBakery"
+
+msgid "WPBakery param types"
+msgstr "Tipi param WPBakery"
+
+msgid "WPBakery vc_map API"
+msgstr "API vc_map WPBakery"
+
+msgid "Wiki and rules"
+msgstr "Wiki e regole"
+
+msgid "You are editing an existing Salient Custom Elements element. Return ONLY a valid JSON object conforming to output_schema with the ENTIRE updated definition. Do not add text, markdown, or PHP. Preserve the base field (shortcode tag) and status unless the user explicitly requests a change. Apply only the requested changes while staying consistent with production_rules and golden_elements. If the user pastes HTML/CSS/JS code: convert it to semantic HTML ONLY with {{param}} tokens; remove CSS and JavaScript from the template; for dynamic tags always use paired tags, e.g. <{{heading_tag}}>{{title}}</{{heading_tag}}>."
+msgstr "Stai modificando un elemento Salient Custom Elements esistente. Restituisci SOLO un oggetto JSON valido conforme a output_schema con l'INTERA definizione aggiornata. Non aggiungere testo, markdown o PHP. Preserva il campo base (tag shortcode) e status salvo richiesta esplicita. Applica solo le modifiche richieste rispettando production_rules e golden_elements. Se l'utente incolla codice HTML/CSS/JS: convertilo in SOLO HTML semantico con token {{param}}; rimuovi CSS e JavaScript dal template; per i tag dinamici usa sempre tag accoppiati, es. <{{heading_tag}}>{{title}}</{{heading_tag}}>."
+
+msgid "category updated"
+msgstr "categoria aggiornata"
+
+msgid "missing dependencies, functionality disabled."
+msgstr "dipendenze mancanti, funzionalità disattivate."
+
+msgid "name updated"
+msgstr "nome aggiornato"
+
+msgid "parameters updated"
+msgstr "parametri aggiornati"
+
+msgid "template updated"
+msgstr "template aggiornato"
+

@@ -1,0 +1,278 @@
+.sce-wrap .sce-card {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 16px 20px;
+	margin: 16px 0;
+	max-width: 900px;
+}
+
+.sce-wrap .sce-card h2 {
+	margin-top: 0;
+}
+
+.sce-edit-toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 20px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 20px 24px;
+	margin: 16px 0;
+	max-width: 900px;
+}
+
+.sce-edit-toolbar__info {
+	min-width: 0;
+}
+
+.sce-edit-toolbar__title {
+	margin: 0 0 4px;
+	font-size: 20px;
+	line-height: 1.3;
+}
+
+.sce-edit-toolbar__meta {
+	margin: 0;
+	color: #646970;
+	font-size: 13px;
+}
+
+.sce-preview-btn {
+	flex-shrink: 0;
+	min-width: 160px;
+	height: auto !important;
+	padding: 12px 28px !important;
+	font-size: 15px !important;
+	line-height: 1.4 !important;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.sce-preview-btn.disabled {
+	opacity: 0.55;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.sce-status {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 10px;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: .03em;
+}
+
+.sce-status-draft {
+	background: #f0f0f1;
+	color: #50575e;
+}
+
+.sce-status-pending {
+	background: #fcf9e8;
+	color: #8a6d00;
+}
+
+.sce-status-active {
+	background: #edfaef;
+	color: #007017;
+}
+
+.sce-wrap textarea.code {
+	font-family: Menlo, Consolas, monospace;
+	font-size: 12px;
+}
+
+.sce-wiki .sce-doc-links {
+	list-style: disc;
+	margin-left: 20px;
+}
+
+.sce-wiki .sce-doc-links a {
+	text-decoration: none;
+}
+
+.sce-wiki .sce-doc-links a:hover {
+	text-decoration: underline;
+}
+
+.sce-badge {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 10px;
+	font-size: 11px;
+	background: #f0f0f1;
+	color: #50575e;
+}
+
+.sce-badge-ok {
+	background: #edfaef;
+	color: #007017;
+}
+
+.sce-badge-warn {
+	background: #fcf0f1;
+	color: #8a2424;
+}
+
+.sce-tier-details,
+.sce-golden-details {
+	margin: 12px 0;
+}
+
+.sce-tier-details summary,
+.sce-golden-details summary {
+	cursor: pointer;
+	margin-bottom: 8px;
+}
+
+.sce-chat-log {
+	margin-top: 16px;
+	padding: 12px;
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	max-height: 360px;
+	overflow-y: auto;
+}
+
+.sce-chat-log--modify {
+	max-height: 400px;
+}
+
+.sce-modify-chat {
+	margin-top: 24px;
+	padding-top: 20px;
+	border-top: 1px solid #dcdcde;
+}
+
+.sce-modify-chat h3 {
+	margin: 0 0 8px;
+	font-size: 14px;
+}
+
+.sce-chat-bubble {
+	padding: 10px 14px;
+	border-radius: 12px;
+	margin-bottom: 10px;
+	max-width: 85%;
+	line-height: 1.5;
+	font-size: 13px;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.sce-chat-bubble--user {
+	background: #2271b1;
+	color: #fff;
+	margin-left: auto;
+	border-bottom-right-radius: 4px;
+}
+
+.sce-chat-bubble--assistant {
+	background: #fff;
+	color: #1d2327;
+	border: 1px solid #dcdcde;
+	margin-right: auto;
+	border-bottom-left-radius: 4px;
+}
+
+.sce-chat-input-area {
+	margin-top: 12px;
+}
+
+.sce-chat-input-area textarea {
+	margin-bottom: 8px;
+	resize: vertical;
+	min-height: 56px;
+}
+
+.sce-edit-card--updated {
+	box-shadow: 0 0 0 2px #72aee6;
+	transition: box-shadow 0.3s ease;
+}
+
+.sce-chat-steps {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.sce-chat-step {
+	padding: 8px 12px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	font-size: 13px;
+	color: #50575e;
+}
+
+.sce-chat-step.is-thinking {
+	color: #2271b1;
+	border-color: #72aee6;
+	animation: sce-pulse 1.2s ease-in-out infinite;
+}
+
+.sce-chat-step.is-done {
+	color: #007017;
+	border-color: #b8e6bf;
+}
+
+.sce-chat-step.is-done::before {
+	content: "✓ ";
+}
+
+.sce-chat-error {
+	padding: 8px 12px;
+	background: #fcf0f1;
+	border: 1px solid #d63638;
+	border-radius: 6px;
+	color: #8a2424;
+	font-size: 13px;
+}
+
+@keyframes sce-pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.55; }
+}
+
+.sce-footer {
+	margin-top: 32px;
+	padding: 20px 24px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px 24px;
+}
+
+.sce-footer__credits {
+	margin: 0;
+	font-size: 13px;
+	color: #50575e;
+}
+
+.sce-footer__meta {
+	margin: 0;
+	font-size: 12px;
+	color: #787c82;
+}
+
+.sce-donate-btn {
+	background: #f6f7f7 !important;
+	border-color: #2271b1 !important;
+	color: #2271b1 !important;
+}
+
+.sce-donate-btn:hover {
+	background: #2271b1 !important;
+	border-color: #2271b1 !important;
+	color: #fff !important;
+}

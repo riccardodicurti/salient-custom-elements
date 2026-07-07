@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpcs:
+    name: PHPCS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: WordPress Coding Standards
+        uses: 10up/wpcs-action@stable
+        with:
+          use_local_config: 'true'
+          enable_warnings: true
+
+  plugin-check:
+    name: Plugin Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          tools: composer
+
+      - name: Configure wp-env
+        run: |
+          cat > .wp-env.json << EOF
+          {
+            "core": null,
+            "phpVersion": "8.2",
+            "plugins": [
+              "https://downloads.wordpress.org/plugin/plugin-check.zip",
+              "."
+            ],
+            "themes": [
+              "./.ci/stubs/theme/salient"
+            ],
+            "mappings": {
+              "wp-content/mu-plugins/sce-wpbakery-stub.php": "./.ci/stubs/mu-plugins/sce-wpbakery-stub.php"
+            }
+          }
+          EOF
+
+      - name: Start wp-env
+        run: |
+          npm i -g @wordpress/env
+          wp-env start --update
+
+      - name: Activate plugin and dependencies
+        run: |
+          wp-env run cli wp theme activate salient
+          wp-env run cli wp plugin activate plugin-check
+          wp-env run cli wp plugin activate salient-custom-elements
+
+      - name: Run Plugin Check
+        run: |
+          set -o pipefail
+          wp-env run cli wp plugin check salient-custom-elements \
+            --format=json \
+            --exclude-directories=tools,.ci \
+            --require=./wp-content/plugins/plugin-check/cli.php \
+            | tee "${RUNNER_TEMP}/plugin-check-results.json"
+
+      - name: Upload Plugin Check results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin-check-results
+          path: ${{ runner.temp }}/plugin-check-results.json
+          if-no-files-found: ignore
+
+      - name: Stop wp-env
+        if: always()
+        run: wp-env stop
