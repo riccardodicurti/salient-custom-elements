@@ -182,6 +182,11 @@
 					});
 
 					if (eventName === 'error') {
+						var thinking = stepsEl.querySelector('.sce-chat-step.is-thinking');
+						if (thinking) {
+							thinking.classList.remove('is-thinking');
+							thinking.classList.add('is-done');
+						}
 						addError(stepsEl, data.message || errorLabel);
 						if (handlers.onError) {
 							handlers.onError(data);

@@ -20,6 +20,46 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class SCE_AI_Generator {
 
 	/**
+	 * Parse model output into a definition array (handles markdown fences and prose wrappers).
+	 *
+	 * @return array<string,mixed>|null
+	 */
+	private static function parse_ai_definition( $definition ): ?array {
+		if ( is_array( $definition ) ) {
+			return $definition;
+		}
+
+		if ( ! is_string( $definition ) ) {
+			return null;
+		}
+
+		$raw = trim( $definition );
+		if ( '' === $raw ) {
+			return null;
+		}
+
+		if ( preg_match( '/```(?:json)?\s*(.*?)\s*```/is', $raw, $matches ) ) {
+			$raw = trim( $matches[1] );
+		}
+
+		$decoded = json_decode( $raw, true );
+		if ( is_array( $decoded ) ) {
+			return $decoded;
+		}
+
+		$start = strpos( $raw, '{' );
+		$end   = strrpos( $raw, '}' );
+		if ( false !== $start && false !== $end && $end > $start ) {
+			$decoded = json_decode( substr( $raw, $start, $end - $start + 1 ), true );
+			if ( is_array( $decoded ) ) {
+				return $decoded;
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Genera una definizione da un prompt.
 	 *
 	 * @param string $prompt Descrizione dell'elemento voluto dal designer.
@@ -63,9 +103,9 @@ final class SCE_AI_Generator {
 
 		$provider = apply_filters( 'sce_ai_provider', null );
 		if ( is_callable( $provider ) ) {
-			$context    = self::modify_system_context( $current_definition, $history );
+			$context     = self::modify_system_context( $current_definition, $history );
 			$full_prompt = self::build_modify_prompt( $prompt, $history );
-			$definition = $provider( $full_prompt, $context );
+			$definition  = $provider( $full_prompt, $context );
 			if ( is_wp_error( $definition ) ) {
 				return $definition;
 			}
@@ -181,10 +221,7 @@ final class SCE_AI_Generator {
 	 * @return array|WP_Error
 	 */
 	private static function validate_ai_output( $definition ) {
-		if ( is_string( $definition ) ) {
-			$decoded = json_decode( $definition, true );
-			$definition = is_array( $decoded ) ? $decoded : null;
-		}
+		$definition = self::parse_ai_definition( $definition );
 
 		if ( ! is_array( $definition ) ) {
 			return new WP_Error( 'sce_ai_bad_output', __( 'The model did not return valid JSON.', 'salient-custom-elements' ) );
@@ -225,10 +262,7 @@ final class SCE_AI_Generator {
 	 * @return array|WP_Error
 	 */
 	private static function validate_ai_modify_output( $definition, array $current ) {
-		if ( is_string( $definition ) ) {
-			$decoded    = json_decode( $definition, true );
-			$definition = is_array( $decoded ) ? $decoded : null;
-		}
+		$definition = self::parse_ai_definition( $definition );
 
 		if ( ! is_array( $definition ) ) {
 			return new WP_Error( 'sce_ai_bad_output', __( 'The model did not return valid JSON.', 'salient-custom-elements' ) );
