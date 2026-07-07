@@ -95,12 +95,14 @@ final class SCE_AI_Generator {
 			'icon'     => $current_definition['icon'] ?? '',
 			'status'   => $current_definition['status'] ?? SCE_Element_Store::STATUS_DRAFT,
 			'template' => $current_definition['template'] ?? '',
+			'styles'   => $current_definition['styles'] ?? '',
+			'scripts'  => $current_definition['scripts'] ?? '',
 			'params'   => $current_definition['params'] ?? array(),
 			'bindings' => $current_definition['bindings'] ?? array(),
 		);
 		$context['conversation']    = $history;
 		$context['instructions']    = __(
-			'You are editing an existing Salient Custom Elements element. Return ONLY a valid JSON object conforming to output_schema with the ENTIRE updated definition. Do not add text, markdown, or PHP. Preserve the base field (shortcode tag) and status unless the user explicitly requests a change. Apply only the requested changes while staying consistent with production_rules and golden_elements. If the user pastes HTML/CSS/JS code: convert it to semantic HTML ONLY with {{param}} tokens; remove CSS and JavaScript from the template; for dynamic tags always use paired tags, e.g. <{{heading_tag}}>{{title}}</{{heading_tag}}>.',
+			'You are editing an existing Salient Custom Elements element. Return ONLY a valid JSON object conforming to output_schema with the ENTIRE updated definition. Do not add text, markdown, or PHP. Preserve the base field (shortcode tag) and status unless the user explicitly requests a change. Apply only the requested changes while staying consistent with production_rules and golden_elements. The template must contain ONLY semantic HTML with {{param}} tokens. Put CSS in the styles field and JavaScript in the scripts field — never in the template. For dynamic tags always use paired tags, e.g. <{{heading_tag}}>{{title}}</{{heading_tag}}>. Scope CSS under .sce-{base} or classes used in the template.',
 			'salient-custom-elements'
 		);
 
@@ -147,7 +149,7 @@ final class SCE_AI_Generator {
 			'vc_map_patterns'    => $ref['vc_map_patterns'] ?? array(),
 			'golden_elements'    => $ref['golden_elements'] ?? array(),
 			'instructions'       => __(
-				'Return ONLY a valid JSON object conforming to output_schema. No text, markdown, or PHP. The template MUST contain ONLY semantic HTML with {{param}} tokens: raw CSS, JavaScript, script/style tags, and IIFEs are FORBIDDEN. Use only recommended param_types. For theme colors use salient_option or {{binding:accent-color}}. Follow golden_elements patterns. Respect production_rules.',
+				'Return ONLY a valid JSON object conforming to output_schema. No text, markdown, or PHP. The template MUST contain ONLY semantic HTML with {{param}} tokens — no CSS or JS in the template. Put element CSS in the styles field and JavaScript in the scripts field. Base responsive CSS is injected automatically; extend it in styles scoped to your classes. Use only recommended param_types. For theme colors use salient_option or {{binding:accent-color}}. Follow golden_elements patterns. Respect production_rules.',
 				'salient-custom-elements'
 			),
 		);
@@ -164,7 +166,9 @@ final class SCE_AI_Generator {
 			'base'     => 'string, tag shortcode univoco, solo minuscole e underscore, prefissato sce_',
 			'category' => 'string, categoria WPBakery',
 			'icon'     => 'string, classe icona opzionale',
-			'template' => 'string, HTML con token {{param_name}} e {{binding:opt-key}} e opzionale {{content}}',
+			'template' => 'string, HTML with {{param_name}} and {{binding:opt-key}} and optional {{content}}',
+			'styles'   => 'string, scoped CSS for this element (no style tags). Use classes from the template.',
+			'scripts'  => 'string, optional JavaScript (no script tags). Enqueued once in footer.',
 			'params'   => 'array di { type, heading, param_name, std, group, description, salient_option }',
 			'bindings' => 'oggetto token => chiave opzione Salient',
 		);
@@ -193,6 +197,19 @@ final class SCE_AI_Generator {
 		if ( is_wp_error( $valid ) ) {
 			return $valid;
 		}
+
+		$styles  = SCE_Rules::sanitize_asset_code( (string) ( $definition['styles'] ?? '' ), 'css' );
+		$scripts = SCE_Rules::sanitize_asset_code( (string) ( $definition['scripts'] ?? '' ), 'js' );
+		$valid_styles = SCE_Rules::validate_styles( $styles );
+		if ( is_wp_error( $valid_styles ) ) {
+			return $valid_styles;
+		}
+		$valid_scripts = SCE_Rules::validate_scripts( $scripts );
+		if ( is_wp_error( $valid_scripts ) ) {
+			return $valid_scripts;
+		}
+		$definition['styles']  = $styles;
+		$definition['scripts'] = $scripts;
 
 		// Forza lo stato iniziale a draft: nulla va live senza la tua approvazione.
 		$definition['status'] = SCE_Element_Store::STATUS_DRAFT;
@@ -224,6 +241,19 @@ final class SCE_AI_Generator {
 		if ( is_wp_error( $valid ) ) {
 			return $valid;
 		}
+
+		$styles  = SCE_Rules::sanitize_asset_code( (string) ( $definition['styles'] ?? '' ), 'css' );
+		$scripts = SCE_Rules::sanitize_asset_code( (string) ( $definition['scripts'] ?? '' ), 'js' );
+		$valid_styles = SCE_Rules::validate_styles( $styles );
+		if ( is_wp_error( $valid_styles ) ) {
+			return $valid_styles;
+		}
+		$valid_scripts = SCE_Rules::validate_scripts( $scripts );
+		if ( is_wp_error( $valid_scripts ) ) {
+			return $valid_scripts;
+		}
+		$definition['styles']  = $styles;
+		$definition['scripts'] = $scripts;
 
 		$definition['base']   = $current['base'] ?? ( $definition['base'] ?? '' );
 		$definition['status'] = $current['status'] ?? SCE_Element_Store::STATUS_DRAFT;

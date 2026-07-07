@@ -106,11 +106,34 @@ final class SCE_Code_Generator {
 		$types_ex       = var_export( $types, true );
 		$bindings_ex    = var_export( $definition['bindings'], true );
 		$template_ex    = var_export( $definition['template'], true );
-		$css_ex         = var_export( SCE_Rules::responsive_css( $base ), true );
+		$styles         = trim( (string) ( $definition['styles'] ?? '' ) );
+		$scripts        = trim( (string) ( $definition['scripts'] ?? '' ) );
+		$css_ex         = var_export( SCE_Rules::compiled_css( $base, $styles ), true );
+		$scripts_ex     = var_export( $scripts, true );
 		$name_ex        = var_export( $name, true );
 		$base_ex        = var_export( $base, true );
 		$cat_ex         = var_export( $cat, true );
 		$icon_ex        = var_export( $icon, true );
+
+		$js_call  = '' !== $scripts ? "\n\t\t{$fn}_js();" : '';
+		$js_block = '';
+		if ( '' !== $scripts ) {
+			$js_block = <<<PHP
+
+/* ---- JavaScript (una volta sola) ---- */
+if ( ! function_exists( '{$fn}_js' ) ) {
+	function {$fn}_js() {
+		static \$done = false;
+		if ( \$done ) { return; }
+		\$done   = true;
+		\$handle = 'sce-{$base}-js';
+		wp_register_script( \$handle, false, array(), null, true );
+		wp_enqueue_script( \$handle );
+		wp_add_inline_script( \$handle, {$scripts_ex} );
+	}
+}
+PHP;
+		}
 
 		$header  = "<?php\n/**\n";
 		$header .= ' * Generato da Salient Custom Elements. DA REVISIONARE prima della produzione.' . "\n";
@@ -224,7 +247,7 @@ if ( ! function_exists( '{$fn}_render' ) ) {
 		\$html = preg_replace( '/\\{\\{[a-z0-9_:\\-]+\\}\\}/i', '', \$html );
 
 		{$fn}_css();
-
+{$js_call}
 		return '<section class="sce-el sce-{$base}">' . \$html . '</section>';
 	}
 }
@@ -241,6 +264,7 @@ if ( ! function_exists( '{$fn}_css' ) ) {
 		wp_add_inline_style( \$handle, {$css_ex} );
 	}
 }
+{$js_block}
 PHP;
 
 		return $header . $body . "\n";

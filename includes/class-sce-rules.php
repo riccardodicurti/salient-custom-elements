@@ -54,9 +54,9 @@ final class SCE_Rules {
 			),
 			'template' => array(
 				__( 'The template contains ONLY semantic HTML with {{param_name}} and {{binding:opt-key}} tokens.', 'salient-custom-elements' ),
-				__( 'FORBIDDEN: raw CSS, JavaScript, <script> tags, <style> tags, IIFEs, window.addEventListener in the template.', 'salient-custom-elements' ),
-				__( 'Responsive scoped CSS is generated automatically by the plugin; do not duplicate it in the template.', 'salient-custom-elements' ),
-				__( 'GSAP animations or custom scripts require separate fields (not yet supported): use only generated HTML/CSS.', 'salient-custom-elements' ),
+				__( 'FORBIDDEN in template: raw CSS, JavaScript, <script> tags, <style> tags, IIFEs, window.addEventListener.', 'salient-custom-elements' ),
+				__( 'Put all element CSS in the styles field (scoped under .sce-{base}). Put JavaScript in the scripts field.', 'salient-custom-elements' ),
+				__( 'Base responsive CSS (focus, images, reduced-motion) is added automatically; extend it in styles.', 'salient-custom-elements' ),
 			),
 		);
 	}
@@ -120,6 +120,10 @@ final class SCE_Rules {
 		}
 		if ( preg_match( '/\son[a-z]+\s*=/i', $tpl ) ) {
 			$warnings[] = __( 'Security: on* attributes (inline handlers) in the template. Remove them.', 'salient-custom-elements' );
+		}
+
+		if ( '' === trim( (string) ( $definition['styles'] ?? '' ) ) && preg_match( '/class="[^"]*sce-[^"]+"/i', $tpl ) ) {
+			$warnings[] = __( 'The template uses custom CSS classes but the styles field is empty. Add scoped CSS in styles.', 'salient-custom-elements' );
 		}
 
 		$template_err = self::validate_template( $tpl );
@@ -255,11 +259,11 @@ final class SCE_Rules {
 		}
 
 		if ( preg_match( '/\bfunction\s*\(/i', $tpl ) || preg_match( '/window\.addEventListener/i', $tpl ) || preg_match( '/\(\s*function\s*\(\s*\)/i', $tpl ) ) {
-			return new WP_Error( 'sce_template_js', __( 'The template cannot contain JavaScript. Remove inline scripts or IIFEs: CSS/JS is generated automatically by the plugin.', 'salient-custom-elements' ) );
+			return new WP_Error( 'sce_template_js', __( 'The template cannot contain JavaScript. Move it to the scripts field.', 'salient-custom-elements' ) );
 		}
 
 		if ( preg_match( '/\.\s*sce-[a-z0-9_-]+\s*\{/i', $tpl ) || preg_match( '/@media\s*\(/i', $tpl ) ) {
-			return new WP_Error( 'sce_template_css', __( 'The template cannot contain raw CSS. Responsive CSS is generated automatically by the plugin.', 'salient-custom-elements' ) );
+			return new WP_Error( 'sce_template_css', __( 'The template cannot contain raw CSS. Move it to the styles field.', 'salient-custom-elements' ) );
 		}
 
 		$dynamic = self::validate_dynamic_tags( $tpl );
@@ -268,5 +272,81 @@ final class SCE_Rules {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Sanitize CSS/JS asset code from AI or manual edit.
+	 */
+	public static function sanitize_asset_code( string $code, string $type ): string {
+		$code = str_replace( array( "\0", "\r" ), '', $code );
+		$code = preg_replace( '/<\/?script\b[^>]*>/i', '', $code );
+		$code = preg_replace( '/<\/?style\b[^>]*>/i', '', $code );
+
+		if ( 'css' === $type ) {
+			$code = preg_replace( '/@import\b[^;]+;?/i', '', $code );
+		}
+
+		return trim( (string) $code );
+	}
+
+	/**
+	 * @return true|WP_Error
+	 */
+	public static function validate_styles( string $styles ) {
+		if ( '' === trim( $styles ) ) {
+			return true;
+		}
+
+		$blocked = array(
+			'/<script/i',
+			'/javascript\s*:/i',
+			'/expression\s*\(/i',
+			'/-moz-binding/i',
+			'/behavior\s*:/i',
+			'/@import/i',
+		);
+		foreach ( $blocked as $pattern ) {
+			if ( preg_match( $pattern, $styles ) ) {
+				return new WP_Error( 'sce_styles_unsafe', __( 'The styles field contains unsafe or unsupported CSS.', 'salient-custom-elements' ) );
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * @return true|WP_Error
+	 */
+	public static function validate_scripts( string $scripts ) {
+		if ( '' === trim( $scripts ) ) {
+			return true;
+		}
+
+		$blocked = array(
+			'/<script/i',
+			'/\beval\s*\(/i',
+			'/\bFunction\s*\(/i',
+			'/document\.write\s*\(/i',
+		);
+		foreach ( $blocked as $pattern ) {
+			if ( preg_match( $pattern, $scripts ) ) {
+				return new WP_Error( 'sce_scripts_unsafe', __( 'The scripts field contains unsafe JavaScript.', 'salient-custom-elements' ) );
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Merge base responsive CSS with element-specific styles.
+	 */
+	public static function compiled_css( string $base, string $styles = '' ): string {
+		$css = self::responsive_css( $base );
+		$styles = trim( $styles );
+		if ( '' !== $styles ) {
+			$css .= "\n" . $styles;
+		}
+
+		return $css;
 	}
 }

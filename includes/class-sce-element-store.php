@@ -168,6 +168,8 @@ final class SCE_Element_Store {
 	 *   icon      string   classe icona o URL
 	 *   status    string   draft|pending|active
 	 *   template  string   HTML con token {{param_name}} e {{binding:opt-key}}
+	 *   styles    string   CSS scoped dell'elemento (no tag style)
+	 *   scripts   string   JavaScript dell'elemento (no tag script)
 	 *   params    array    lista di parametri vc_map
 	 *   bindings  array    token => chiave opzione Salient
 	 *   generation_prompt string prompt usato per la generazione iniziale
@@ -216,6 +218,8 @@ final class SCE_Element_Store {
 			'icon'              => sanitize_text_field( $def['icon'] ?? '' ),
 			'status'            => $status,
 			'template'          => wp_kses_post( $def['template'] ?? '' ),
+			'styles'            => SCE_Rules::sanitize_asset_code( (string) ( $def['styles'] ?? '' ), 'css' ),
+			'scripts'           => SCE_Rules::sanitize_asset_code( (string) ( $def['scripts'] ?? '' ), 'js' ),
 			'params'            => $params,
 			'bindings'          => $bindings,
 			'generation_prompt' => sanitize_textarea_field( $def['generation_prompt'] ?? '' ),

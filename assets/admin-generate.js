@@ -248,6 +248,8 @@
 		var baseField = document.getElementById('sce-base');
 		var categoryField = document.getElementById('sce-category');
 		var templateField = document.getElementById('sce-template');
+		var stylesField = document.getElementById('sce-styles');
+		var scriptsField = document.getElementById('sce-scripts');
 		var paramsField = document.getElementById('sce-params-json');
 		var editCard = document.getElementById('sce-edit-card');
 
@@ -262,6 +264,12 @@
 		}
 		if (templateField && typeof definition.template === 'string') {
 			templateField.value = definition.template;
+		}
+		if (stylesField && typeof definition.styles === 'string') {
+			stylesField.value = definition.styles;
+		}
+		if (scriptsField && typeof definition.scripts === 'string') {
+			scriptsField.value = definition.scripts;
 		}
 		if (paramsField && definition.params) {
 			paramsField.value = JSON.stringify(definition.params, null, 2);

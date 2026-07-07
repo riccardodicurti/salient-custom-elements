@@ -272,6 +272,16 @@ final class SCE_Admin {
 			esc_textarea( $def['template'] )
 		);
 		printf(
+			'<p><label for="sce-styles">%s<br><textarea name="styles" id="sce-styles" rows="8" class="large-text code">%s</textarea></label></p>',
+			esc_html__( 'Styles (scoped CSS, no style tags)', 'salient-custom-elements' ),
+			esc_textarea( $def['styles'] ?? '' )
+		);
+		printf(
+			'<p><label for="sce-scripts">%s<br><textarea name="scripts" id="sce-scripts" rows="6" class="large-text code">%s</textarea></label></p>',
+			esc_html__( 'Scripts (JavaScript, no script tags)', 'salient-custom-elements' ),
+			esc_textarea( $def['scripts'] ?? '' )
+		);
+		printf(
 			'<p><label for="sce-params-json">%s<br><textarea name="params_json" id="sce-params-json" rows="6" class="large-text code">%s</textarea></label></p>',
 			esc_html__( 'Parameters (JSON)', 'salient-custom-elements' ),
 			esc_textarea( (string) wp_json_encode( $def['params'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) )
@@ -435,7 +445,11 @@ final class SCE_Admin {
 			'base'              => isset( $_POST['base'] ) ? sanitize_text_field( wp_unslash( $_POST['base'] ) ) : '',
 			'category'          => isset( $_POST['category'] ) ? sanitize_text_field( wp_unslash( $_POST['category'] ) ) : '',
 			'template'          => isset( $_POST['template'] ) ? wp_kses_post( wp_unslash( $_POST['template'] ) ) : '',
+			'styles'            => isset( $_POST['styles'] ) ? SCE_Rules::sanitize_asset_code( wp_unslash( $_POST['styles'] ), 'css' ) : '',
+			'scripts'           => isset( $_POST['scripts'] ) ? SCE_Rules::sanitize_asset_code( wp_unslash( $_POST['scripts'] ), 'js' ) : '',
 			'params'            => $params,
+			'bindings'          => $existing['bindings'] ?? array(),
+			'icon'              => $existing['icon'] ?? '',
 			'status'            => $existing['status'] ?? SCE_Element_Store::STATUS_DRAFT,
 			'generation_prompt' => $existing['generation_prompt'] ?? '',
 		);
@@ -443,6 +457,14 @@ final class SCE_Admin {
 		$valid = SCE_Rules::validate_template( $definition['template'] );
 		if ( is_wp_error( $valid ) ) {
 			self::redirect( array( 'sce_err' => $valid->get_error_message(), 'edit' => $id ) );
+		}
+		$valid_styles = SCE_Rules::validate_styles( $definition['styles'] );
+		if ( is_wp_error( $valid_styles ) ) {
+			self::redirect( array( 'sce_err' => $valid_styles->get_error_message(), 'edit' => $id ) );
+		}
+		$valid_scripts = SCE_Rules::validate_scripts( $definition['scripts'] );
+		if ( is_wp_error( $valid_scripts ) ) {
+			self::redirect( array( 'sce_err' => $valid_scripts->get_error_message(), 'edit' => $id ) );
 		}
 
 		// Se cambia la base, rimuovi il vecchio file generato.

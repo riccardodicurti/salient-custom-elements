@@ -250,6 +250,12 @@ final class SCE_Generator {
 		if ( ( $before['template'] ?? '' ) !== ( $after['template'] ?? '' ) ) {
 			$changes[] = __( 'template updated', 'salient-custom-elements' );
 		}
+		if ( ( $before['styles'] ?? '' ) !== ( $after['styles'] ?? '' ) ) {
+			$changes[] = __( 'styles updated', 'salient-custom-elements' );
+		}
+		if ( ( $before['scripts'] ?? '' ) !== ( $after['scripts'] ?? '' ) ) {
+			$changes[] = __( 'scripts updated', 'salient-custom-elements' );
+		}
 
 		$before_params = wp_json_encode( $before['params'] ?? array() );
 		$after_params  = wp_json_encode( $after['params'] ?? array() );
