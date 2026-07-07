@@ -114,6 +114,18 @@ final class SCE_Code_Generator {
 		$base_ex        = var_export( $base, true );
 		$cat_ex         = var_export( $cat, true );
 		$icon_ex        = var_export( $icon, true );
+		$needs_gsap     = '' !== $scripts && preg_match( '/\bgsap\b/i', $scripts );
+		$js_deps_ex     = var_export( $needs_gsap ? array( 'gsap' ) : array(), true );
+		$gsap_setup     = '';
+		if ( $needs_gsap ) {
+			$gsap_setup = <<<'GSAP'
+
+		if ( ! wp_script_is( 'gsap', 'registered' ) ) {
+			wp_register_script( 'gsap', 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js', array(), '3.12.5', true );
+		}
+		wp_enqueue_script( 'gsap' );
+GSAP;
+		}
 
 		$js_call  = '' !== $scripts ? "\n\t\t{$fn}_js();" : '';
 		$js_block = '';
@@ -127,7 +139,8 @@ if ( ! function_exists( '{$fn}_js' ) ) {
 		if ( \$done ) { return; }
 		\$done   = true;
 		\$handle = 'sce-{$base}-js';
-		wp_register_script( \$handle, false, array(), null, true );
+{$gsap_setup}
+		wp_register_script( \$handle, false, {$js_deps_ex}, null, true );
 		wp_enqueue_script( \$handle );
 		wp_add_inline_script( \$handle, {$scripts_ex} );
 	}
@@ -172,6 +185,46 @@ if ( ! function_exists( 'sce_shipped_esc' ) ) {
 			default:
 				return esc_html( \$value );
 		}
+	}
+}
+if ( ! function_exists( 'sce_shipped_binding' ) ) {
+	function sce_shipped_binding( \$opts, \$key ) {
+		if ( ! isset( \$opts[ \$key ] ) || '' === \$opts[ \$key ] ) {
+			return '';
+		}
+		\$val = \$opts[ \$key ];
+		if ( is_string( \$val ) || is_numeric( \$val ) ) {
+			\$str = trim( (string) \$val );
+			if ( '' === \$str || '-' === \$str ) {
+				return '';
+			}
+			return esc_attr( \$str );
+		}
+		if ( ! is_array( \$val ) ) {
+			return '';
+		}
+		if ( isset( \$val['font-family'] ) && is_string( \$val['font-family'] ) ) {
+			\$family = trim( \$val['font-family'] );
+			if ( '' === \$family || '-' === \$family ) {
+				return '';
+			}
+			if ( str_contains( \$family, '"' ) ) {
+				return htmlspecialchars( \$family, ENT_NOQUOTES, 'UTF-8' );
+			}
+			return esc_attr( \$family );
+		}
+		\$legacy = preg_replace( '/_font_family\$/', '', \$key );
+		if ( \$legacy !== \$key && isset( \$opts[ \$legacy ] ) && is_string( \$opts[ \$legacy ] ) ) {
+			\$family = trim( \$opts[ \$legacy ] );
+			if ( '' === \$family || '-' === \$family ) {
+				return '';
+			}
+			if ( preg_match( '/[0-9]/', \$family ) ) {
+				\$family = '"' . \$family . '"';
+			}
+			return esc_attr( \$family );
+		}
+		return '';
 	}
 }
 
@@ -237,31 +290,39 @@ if ( ! function_exists( '{$fn}_render' ) ) {
 			\$tokens[ '{{' . \$pn . '}}' ] = sce_shipped_esc( \$type, \$val );
 		}
 		foreach ( \$bindings as \$token => \$k ) {
-			\$safe = isset( \$opts[ \$k ] ) ? esc_attr( \$opts[ \$k ] ) : '';
+			\$safe = sce_shipped_binding( \$opts, \$k );
 			\$tokens[ '{{binding:' . \$k . '}}' ] = \$safe;
-			\$tokens[ '{{' . \$token . '}}' ]      = \$safe;
+			if ( ! isset( \$tokens[ '{{' . \$token . '}}' ] ) ) {
+				\$tokens[ '{{' . \$token . '}}' ] = \$safe;
+			}
 		}
 		\$tokens['{{content}}'] = do_shortcode( wp_kses_post( (string) \$content ) );
 
 		\$html = strtr( \$template, \$tokens );
 		\$html = preg_replace( '/\\{\\{[a-z0-9_:\\-]+\\}\\}/i', '', \$html );
 
-		{$fn}_css();
+		{$fn}_css( \$tokens );
 {$js_call}
 		return '<section class="sce-el sce-{$base}">' . \$html . '</section>';
 	}
 }
 
-/* ---- CSS scoped, responsive e accessibile (una volta sola) ---- */
+/* ---- CSS scoped, responsive e accessibile ---- */
 if ( ! function_exists( '{$fn}_css' ) ) {
-	function {$fn}_css() {
-		static \$done = false;
-		if ( \$done ) { return; }
-		\$done   = true;
+	function {$fn}_css( \$tokens ) {
+		static \$cache = array();
+		\$raw = {$css_ex};
+		\$css = strtr( \$raw, is_array( \$tokens ) ? \$tokens : array() );
+		\$css = preg_replace( '/\\{\\{[a-z0-9_:\\-]+\\}\\}/i', '', \$css );
+		\$key = md5( \$css );
+		if ( isset( \$cache[ \$key ] ) ) {
+			return;
+		}
+		\$cache[ \$key ] = true;
 		\$handle = 'sce-{$base}';
 		wp_register_style( \$handle, false, array(), null );
 		wp_enqueue_style( \$handle );
-		wp_add_inline_style( \$handle, {$css_ex} );
+		wp_add_inline_style( \$handle, \$css );
 	}
 }
 {$js_block}

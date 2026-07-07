@@ -58,6 +58,61 @@ final class SCE_Salient {
 	}
 
 	/**
+	 * Risolve un valore binding Salient in stringa sicura per CSS/HTML (typography array, colori, stringhe).
+	 *
+	 * @param string               $key  Chiave opzione Salient.
+	 * @param array<string,mixed>|null $opts Opzioni tema (default: options()).
+	 */
+	public static function binding_value( string $key, ?array $opts = null ): string {
+		if ( null === $opts ) {
+			$opts = self::options();
+		}
+
+		if ( ! isset( $opts[ $key ] ) || '' === $opts[ $key ] ) {
+			return '';
+		}
+
+		$val = $opts[ $key ];
+
+		if ( is_string( $val ) || is_numeric( $val ) ) {
+			$str = trim( (string) $val );
+			if ( '' === $str || '-' === $str ) {
+				return '';
+			}
+			return esc_attr( $str );
+		}
+
+		if ( ! is_array( $val ) ) {
+			return '';
+		}
+
+		if ( isset( $val['font-family'] ) && is_string( $val['font-family'] ) ) {
+			$family = trim( $val['font-family'] );
+			if ( '' === $family || '-' === $family ) {
+				return '';
+			}
+			if ( str_contains( $family, '"' ) ) {
+				return htmlspecialchars( $family, ENT_NOQUOTES, 'UTF-8' );
+			}
+			return esc_attr( $family );
+		}
+
+		$legacy = preg_replace( '/_font_family$/', '', $key );
+		if ( $legacy !== $key && isset( $opts[ $legacy ] ) && is_string( $opts[ $legacy ] ) ) {
+			$family = trim( $opts[ $legacy ] );
+			if ( '' === $family || '-' === $family ) {
+				return '';
+			}
+			if ( preg_match( '/[0-9]/', $family ) ) {
+				$family = '"' . $family . '"';
+			}
+			return esc_attr( $family );
+		}
+
+		return '';
+	}
+
+	/**
 	 * Chiavi opzione piu' utili come binding di default per gli elementi.
 	 * (Verifica i nomi esatti sulla tua versione di Salient e affina questa mappa.)
 	 *

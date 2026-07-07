@@ -217,7 +217,9 @@ final class SCE_Element_Store {
 			'category'          => sanitize_text_field( $def['category'] ?? __( 'Salient Custom', 'salient-custom-elements' ) ),
 			'icon'              => sanitize_text_field( $def['icon'] ?? '' ),
 			'status'            => $status,
-			'template'          => wp_kses_post( $def['template'] ?? '' ),
+			'template'          => SCE_Rules::normalize_template(
+				SCE_Rules::sanitize_template( (string) ( $def['template'] ?? '' ) )
+			),
 			'styles'            => SCE_Rules::sanitize_asset_code( (string) ( $def['styles'] ?? '' ), 'css' ),
 			'scripts'           => SCE_Rules::sanitize_asset_code( (string) ( $def['scripts'] ?? '' ), 'js' ),
 			'params'            => $params,

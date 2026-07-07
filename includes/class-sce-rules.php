@@ -135,6 +135,32 @@ final class SCE_Rules {
 	}
 
 	/**
+	 * Sanitizza il template preservando tag e token dinamici {{param}} / {{binding:key}}.
+	 */
+	public static function sanitize_template( string $template ): string {
+		if ( '' === trim( $template ) ) {
+			return '';
+		}
+
+		$placeholders = array();
+		$index        = 0;
+
+		$protect = static function ( array $matches ) use ( &$placeholders, &$index ): string {
+			$key                    = "\x00SCEPH{$index}\x00";
+			$placeholders[ $key ] = $matches[0];
+			++$index;
+			return $key;
+		};
+
+		$tpl = preg_replace_callback( '/<\{\{[a-z0-9_-]+\}\}(?:\s[^>]*)?>/i', $protect, $template );
+		$tpl = preg_replace_callback( '/<\/\{\{[a-z0-9_-]+\}\}>/i', $protect, $tpl );
+		$tpl = preg_replace_callback( '/\{\{[a-z0-9_:-]+\}\}/i', $protect, $tpl );
+		$tpl = wp_kses_post( $tpl );
+
+		return '' !== $placeholders ? strtr( $tpl, $placeholders ) : $tpl;
+	}
+
+	/**
 	 * Normalizza un template prima della validazione (output AI o codice incollato).
 	 */
 	public static function normalize_template( string $template ): string {
@@ -325,7 +351,8 @@ final class SCE_Rules {
 		$blocked = array(
 			'/<script/i',
 			'/\beval\s*\(/i',
-			'/\bFunction\s*\(/i',
+			'/\bnew\s+Function\s*\(/i',
+			'/(?<![.\w])\bFunction\s*\(/',
 			'/document\.write\s*\(/i',
 		);
 		foreach ( $blocked as $pattern ) {

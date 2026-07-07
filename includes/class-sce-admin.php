@@ -444,7 +444,9 @@ final class SCE_Admin {
 			'name'              => isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '',
 			'base'              => isset( $_POST['base'] ) ? sanitize_text_field( wp_unslash( $_POST['base'] ) ) : '',
 			'category'          => isset( $_POST['category'] ) ? sanitize_text_field( wp_unslash( $_POST['category'] ) ) : '',
-			'template'          => isset( $_POST['template'] ) ? wp_kses_post( wp_unslash( $_POST['template'] ) ) : '',
+			'template'          => isset( $_POST['template'] )
+				? SCE_Rules::normalize_template( SCE_Rules::sanitize_template( wp_unslash( (string) $_POST['template'] ) ) )
+				: '',
 			'styles'            => isset( $_POST['styles'] ) ? SCE_Rules::sanitize_asset_code( wp_unslash( $_POST['styles'] ), 'css' ) : '',
 			'scripts'           => isset( $_POST['scripts'] ) ? SCE_Rules::sanitize_asset_code( wp_unslash( $_POST['scripts'] ), 'js' ) : '',
 			'params'            => $params,
